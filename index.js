@@ -18,7 +18,8 @@ client.on('ready', () => {
 });
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_KEY,
+    baseURL: 'https://api.deepseek.com',
+    apiKey: process.env.DeepSeekAPI,
 });
 
 // 预制的 content 放在 QAcontent 中
@@ -112,9 +113,8 @@ client.on('messageCreate', async (message) => {
     
     try {
         const result = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo',
+            model: 'deepseek-chat',
             messages: conversationlog,
-            max_tokens: 3000,
         });
         message.reply(result.choices[0].message.content);
     } catch (error) {
